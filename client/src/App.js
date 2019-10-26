@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import './App.css';
 import Title from './components/Title';
 import WordForm from './components/WordForm';
+import Tweets from './components/Tweets';
 import OAuth from 'oauth';
 
 const url = 'https://api.twitter.com/1.1/search/tweets.json';
@@ -13,7 +14,9 @@ const ACCESS_SECRET = 'VZr0tZuG2zlbGsXnGI8LvXj89eF6HOsicsSQ2JFxwimJg';
 class App extends Component{
   constructor(props){
     super(props);
-    this.state = { apiReponse: ""};
+    this.state = { 
+      apiResponse: ""
+    };
   }
 
   getTweets = (e) => {
@@ -22,23 +25,18 @@ class App extends Component{
     fetch("http://localhost:5000/api/twitter")
     .then(res => res.text())
     .then(data => {
-      this.setState({ apiResponse: data })
-      console.log(data);
-    });
-
-    console.log("Fetch");
+      this.setState({ apiResponse: data})
+      console.log(this.state.apiResponse);
+    })
+    .catch(err => console.log(err));
   }
-
-  /*componentDidMount() {
-    this.getTweets();
-  }*/
 
   render(){
     return (
       <div className="App">
         <Title></Title>
         <WordForm getTweets={this.getTweets}></WordForm>
-        <p className='tweetList'>{this.state.apiReponse}</p>
+        <Tweets apiResponse={this.state.apiResponse}>{this.state.apiResponse}</Tweets>
       </div>
     )
   }

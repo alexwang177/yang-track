@@ -16,18 +16,22 @@ var T = new Twit({
     strictSSL:            true,     // optional - requires SSL certificates to be valid.
   })
 
-var tweets;
+//var tweets;
 
-T.get('search/tweets', { q: 'andrew yang', count: 100}, function(err, data, response) {
+/*T.get('search/tweets', { q: 'andrew yang', count: 100}, function(err, data, response) {
     console.log(data);
     tweets = data;
-})
+})*/
 
 // @route  GET api/items
 // @desc   Get All Items
 // @access Public
 router.get('/', (req, res) => {
-    res.send(tweets);
+    T.get('search/tweets', { q: 'andrew yang', count: 100}, function(err, data, response) {
+        console.log(data);
+        //tweets = data;
+        res.send(data);
+    })
 });
 
 module.exports = router;

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
 
 export default class WordForm extends Component {
+    
+
     render() {
         return (
             <div>
