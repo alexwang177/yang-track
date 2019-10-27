@@ -3,6 +3,8 @@ import './App.css';
 import Title from './components/Title';
 import WordForm from './components/WordForm';
 import Tweets from './components/Tweets';
+import CanvasJSReact from './canvasjs.react';
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 class App extends Component{
   constructor(props){
@@ -46,10 +48,27 @@ class App extends Component{
   }
 
   render(){
+    const options = {
+      title: {
+        text: "Yang Sentiment For Keyword: " + this.state.queryPhrase
+      },
+      data: [{				
+                type: "pie",
+                dataPoints: [
+                    { label: "Strongly Positive",  y: 10  },
+                    { label: "Positive", y: 15  },
+                    { label: "Neutral", y: 25  },
+                    { label: "Negative",  y: 30  },
+                    { label: "Strongly Negative",  y: 28  }
+                ]
+       }]
+    }
+
     return (
       <div className="App">
         <Title></Title>
         <WordForm searchTweets={this.searchTweets} updateQuery={this.updateQuery}></WordForm>
+        <CanvasJSChart options = {options}/>
         <Tweets apiResponse={this.state.apiResponse}></Tweets>
       </div>
     )
