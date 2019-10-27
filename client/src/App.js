@@ -22,7 +22,17 @@ class App extends Component{
   getTweets = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:5000/api/twitter")
+    fetch("http://localhost:5000/api/twitter", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'cache-control': 'no-cache'
+      },
+      body: JSON.stringify({
+        query: 'climate change'
+      })
+    })
     .then(res => res.json())
     .then(data => {
       this.setState({ apiResponse: data.payLoad})

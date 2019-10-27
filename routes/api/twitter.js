@@ -20,14 +20,18 @@ var T = new Twit({
 var sentiment = new Sentiment();
 var payLoad = [];
 
-// @route  GET api/items
-// @desc   Get All Items
+// @route  POST api/items
+// @desc   Get All Items with the queried keyword
 // @access Public
-router.get('/', (req, res) => {
-    T.get('search/tweets', { q: 'andrew yang', count: 100}, function(err, data, response) {
+router.post('/', (req, res) => {
+    console.log("sup");
+    console.log(req.body.query);
+    T.get('search/tweets', { q: 'andrew yang ' + req.body.query, count: 100}, function(err, data, response) {
+        //console.log(data);
         payLoad = data.statuses.map((tweet) => {
           return {'text': tweet.text,
-                  'sentiment': sentiment.analyze(tweet.text)
+                  'sentiment': sentiment.analyze(tweet.text),
+                  'id': tweet.id
                  }
         })
         res.send({'payLoad': payLoad});

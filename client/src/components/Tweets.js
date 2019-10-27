@@ -8,9 +8,11 @@ export default class Tweets extends Component {
                {
                    this.props.apiResponse.map((t) => {
                        return (
-                       <div>
-                           <li>{t.text}</li>
-                           <li>{t.sentiment.score}</li>
+                       <div key={t.id}>
+                           <li>
+                            <p>{t.text}</p>
+                            <p>{t.sentiment.score}</p>
+                           </li>
                        </div>)
                    })
                }
