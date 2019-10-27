@@ -24,8 +24,6 @@ var payLoad = [];
 // @desc   Get All Items with the queried keyword
 // @access Public
 router.post('/', (req, res) => {
-    console.log("sup");
-    console.log(req.body.query);
     T.get('search/tweets', { q: 'andrew yang ' + req.body.query, count: 100}, function(err, data, response) {
         //console.log(data);
         payLoad = data.statuses.map((tweet) => {

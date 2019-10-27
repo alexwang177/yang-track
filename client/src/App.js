@@ -20,12 +20,15 @@ class App extends Component{
     };
   }
 
-  searchTweets = (e, keyword) => {
+  updateQuery = (keyword) => {
+    this.setState({queryPhrase: keyword});
+  }
+
+  searchTweets = (e) => {
     e.preventDefault();
 
-    this.setState({queryPhrase: keyword});
-
-    return(this.getTweets());
+    //this.setState({queryPhrase: keyword}, this.getTweets());
+    this.getTweets();
   }
 
   getTweets = () => {
@@ -55,7 +58,7 @@ class App extends Component{
     return (
       <div className="App">
         <Title></Title>
-        <WordForm searchTweets={this.searchTweets}></WordForm>
+        <WordForm searchTweets={this.searchTweets} updateQuery={this.updateQuery}></WordForm>
         <Tweets apiResponse={this.state.apiResponse}></Tweets>
       </div>
     )
