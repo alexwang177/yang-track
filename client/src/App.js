@@ -15,7 +15,7 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = { 
-      apiResponse: ""
+      apiResponse: []
     };
   }
 
@@ -23,9 +23,9 @@ class App extends Component{
     e.preventDefault();
 
     fetch("http://localhost:5000/api/twitter")
-    .then(res => res.text())
+    .then(res => res.json())
     .then(data => {
-      this.setState({ apiResponse: data})
+      this.setState({ apiResponse: data.statuses})
       console.log(this.state.apiResponse);
     })
     .catch(err => console.log(err));
@@ -36,7 +36,7 @@ class App extends Component{
       <div className="App">
         <Title></Title>
         <WordForm getTweets={this.getTweets}></WordForm>
-        <Tweets apiResponse={this.state.apiResponse}>{this.state.apiResponse}</Tweets>
+        <Tweets apiResponse={this.state.apiResponse}></Tweets>
       </div>
     )
   }

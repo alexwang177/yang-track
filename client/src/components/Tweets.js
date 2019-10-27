@@ -4,7 +4,13 @@ export default class Tweets extends Component {
     render() {
         return (
             <div>
-               <p>{this.props.apiResponse}</p>
+                <ul>
+               {
+                   this.props.apiResponse.map((t) => {
+                       return <li>{t.text}</li>
+                   })
+               }
+               </ul>
             </div>
         )
     }
