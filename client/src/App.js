@@ -28,7 +28,7 @@ class App extends Component{
 
     console.log('Query: ' + this.state.queryPhrase);
 
-    fetch("http://localhost:5000/api/twitter", {
+    fetch("/api/twitter", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
