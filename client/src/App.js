@@ -25,7 +25,7 @@ class App extends Component{
     fetch("http://localhost:5000/api/twitter")
     .then(res => res.json())
     .then(data => {
-      this.setState({ apiResponse: data.statuses})
+      this.setState({ apiResponse: data.payLoad})
       console.log(this.state.apiResponse);
     })
     .catch(err => console.log(err));

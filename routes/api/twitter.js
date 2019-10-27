@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 var Twit = require('twit'); 
+var Sentiment = require('sentiment');
 
 const API_KEY = 'xFUQcmUlDuf7S3dWflFs4ZXvc';
 const API_SECRET = '7lb6EMeGOkHPr4bKEFThb38903BbZmfrnJPtgjWKj0zm4E2f3u';
@@ -16,21 +17,20 @@ var T = new Twit({
     strictSSL:            true,     // optional - requires SSL certificates to be valid.
   })
 
-//var tweets;
-
-/*T.get('search/tweets', { q: 'andrew yang', count: 100}, function(err, data, response) {
-    console.log(data);
-    tweets = data;
-})*/
+var sentiment = new Sentiment();
+var payLoad = [];
 
 // @route  GET api/items
 // @desc   Get All Items
 // @access Public
 router.get('/', (req, res) => {
     T.get('search/tweets', { q: 'andrew yang', count: 100}, function(err, data, response) {
-        console.log(data);
-        //tweets = data;
-        res.send(data);
+        payLoad = data.statuses.map((tweet) => {
+          return {'text': tweet.text,
+                  'sentiment': sentiment.analyze(tweet.text)
+                 }
+        })
+        res.send({'payLoad': payLoad});
     })
 });
 
