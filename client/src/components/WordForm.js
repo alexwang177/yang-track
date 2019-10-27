@@ -3,13 +3,6 @@ import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
 
 export default class WordForm extends Component {
 
-    constructor(props) {
-        super(props);
-        /*this.state = {
-            queryPhrase: ""
-        };*/
-    }
-
     onFormSubmit = (e) => {
         e.preventDefault();
 

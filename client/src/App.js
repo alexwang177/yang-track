@@ -3,13 +3,6 @@ import './App.css';
 import Title from './components/Title';
 import WordForm from './components/WordForm';
 import Tweets from './components/Tweets';
-import OAuth from 'oauth';
-
-const url = 'https://api.twitter.com/1.1/search/tweets.json';
-const API_KEY = 'xFUQcmUlDuf7S3dWflFs4ZXvc';
-const API_SECRET = '7lb6EMeGOkHPr4bKEFThb38903BbZmfrnJPtgjWKj0zm4E2f3u';
-const ACCESS_TOKEN = '2557605158-UhRurcnRflE7mWH0NsSchhbDZM50PWIulvLdw7b';
-const ACCESS_SECRET = 'VZr0tZuG2zlbGsXnGI8LvXj89eF6HOsicsSQ2JFxwimJg';
 
 class App extends Component{
   constructor(props){
@@ -26,14 +19,12 @@ class App extends Component{
 
   searchTweets = (e) => {
     e.preventDefault();
-
-    //this.setState({queryPhrase: keyword}, this.getTweets());
     this.getTweets();
   }
 
   getTweets = () => {
 
-    console.log(this.state.queryPhrase);
+    console.log('Query: ' + this.state.queryPhrase);
 
     fetch("http://localhost:5000/api/twitter", {
       method: 'POST',
