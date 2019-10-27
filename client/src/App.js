@@ -47,7 +47,34 @@ class App extends Component{
     .catch(err => console.log(err));
   }
 
+  averageSentiment = (dataSet) => {
+    let sp = 0;
+    let p = 0;
+    let neutral = 0;
+    let n = 0;
+    let sn = 0;
+
+    dataSet.forEach((tweet) => {
+      if(tweet.sentiment.score > 2)
+        sp++;
+      else if(tweet.sentiment.score == 1 || tweet.sentiment.score == 2)
+        p++;
+      else if(tweet.sentiment.score == 0)
+        neutral++;
+      else if(tweet.sentiment.score == -1 || tweet.sentiment.score == -2)
+        n++;
+      else if(tweet.sentiment.score < -2)
+        sn++;
+    })
+    
+    return [sp, p, neutral, n ,sn];
+  }
+
   render(){
+    let arrSentiments = this.averageSentiment(this.state.apiResponse)
+
+    console.log(arrSentiments);
+  
     const options = {
       title: {
         text: "Yang Sentiment For Keyword: " + this.state.queryPhrase
@@ -55,11 +82,11 @@ class App extends Component{
       data: [{				
                 type: "pie",
                 dataPoints: [
-                    { label: "Strongly Positive",  y: 10  },
-                    { label: "Positive", y: 15  },
-                    { label: "Neutral", y: 25  },
-                    { label: "Negative",  y: 30  },
-                    { label: "Strongly Negative",  y: 28  }
+                    { label: "Strongly Positive",  y: arrSentiments[0]  },
+                    { label: "Positive", y: arrSentiments[1]  },
+                    { label: "Neutral", y: arrSentiments[2]  },
+                    { label: "Negative",  y: arrSentiments[3]  },
+                    { label: "Strongly Negative",  y: arrSentiments[4]  }
                 ]
        }]
     }
