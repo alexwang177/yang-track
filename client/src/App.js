@@ -15,12 +15,22 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = { 
-      apiResponse: []
+      apiResponse: [],
+      queryPhrase: ""
     };
   }
 
-  getTweets = (e) => {
+  searchTweets = (e, keyword) => {
     e.preventDefault();
+
+    this.setState({queryPhrase: keyword});
+
+    return(this.getTweets());
+  }
+
+  getTweets = () => {
+
+    console.log(this.state.queryPhrase);
 
     fetch("http://localhost:5000/api/twitter", {
       method: 'POST',
@@ -30,7 +40,7 @@ class App extends Component{
         'cache-control': 'no-cache'
       },
       body: JSON.stringify({
-        query: 'climate change'
+        query: this.state.queryPhrase
       })
     })
     .then(res => res.json())
@@ -45,7 +55,7 @@ class App extends Component{
     return (
       <div className="App">
         <Title></Title>
-        <WordForm getTweets={this.getTweets}></WordForm>
+        <WordForm searchTweets={this.searchTweets}></WordForm>
         <Tweets apiResponse={this.state.apiResponse}></Tweets>
       </div>
     )
