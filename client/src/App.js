@@ -66,8 +66,15 @@ class App extends Component{
       else if(tweet.sentiment.score < -2)
         sn++;
     })
+
+    let sum = 1;
+    sum = sp + p + neutral + n + sn;
+
+    if(isNaN(sp/sum))
+      return [0, 0, 0, 0 ,0];
     
-    return [sp, p, neutral, n ,sn];
+    return [(sp/sum) * 100, (p/sum) * 100, (neutral/sum) * 100, (n/sum) * 100 ,(sn/sum) * 100];
+    //return [sp, p, neutral, n, sn];
   }
 
   render(){
@@ -81,6 +88,7 @@ class App extends Component{
       },
       data: [{				
                 type: "pie",
+                toolTipContent: "<b>{label}</b>: {y}%",
                 dataPoints: [
                     { label: "Strongly Positive",  y: arrSentiments[0]  },
                     { label: "Positive", y: arrSentiments[1]  },
