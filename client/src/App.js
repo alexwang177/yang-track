@@ -57,11 +57,11 @@ class App extends Component{
     dataSet.forEach((tweet) => {
       if(tweet.sentiment.score > 2)
         sp++;
-      else if(tweet.sentiment.score == 1 || tweet.sentiment.score == 2)
+      else if(tweet.sentiment.score === 1 || tweet.sentiment.score === 2)
         p++;
-      else if(tweet.sentiment.score == 0)
+      else if(tweet.sentiment.score === 0)
         neutral++;
-      else if(tweet.sentiment.score == -1 || tweet.sentiment.score == -2)
+      else if(tweet.sentiment.score === -1 || tweet.sentiment.score === -2)
         n++;
       else if(tweet.sentiment.score < -2)
         sn++;
